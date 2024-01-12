@@ -15,7 +15,7 @@ RUN apk add perl-uri
 # Copy initialization repository config
 COPY init-config /repo-config
 COPY bin/* ${GRAPHDB_INSTALL_DIR}/bin/
-
+RUN sed -i 's/\r//' ${GRAPHDB_INSTALL_DIR}/bin/repo-init.sh
 EXPOSE 7200
 
 CMD ${GRAPHDB_INSTALL_DIR}/bin/repo-init.sh /repo-config ${GRAPHDB_HOME} & ${GRAPHDB_INSTALL_DIR}/bin/graphdb -Dgraphdb.home=${GRAPHDB_HOME} -Dgraphdb.logback=${GRAPHDB_INSTALL_DIR}/conf/logback.xml
